@@ -1,0 +1,20 @@
+MODEL:
+  BACKBONE:
+    PRETRAIN_PATH: /home/arsen/group_reid/methods/UMSOT/checkpoints/vit_base_patch16_224_augreg2_in21k_ft_in1k.pth
+
+DATASETS:
+  ROOT: /home/arsen/group_reid/datasets
+
+  CSG_ROOT: /home/arsen/group_reid/datasets/cuhk_sysu
+  CSG_IMAGE_ROOT: /home/arsen/group_reid/datasets/cuhk_sysu/Image/SSM
+  CSG_LABEL_ROOT: /home/arsen/group_reid/datasets/cuhk_sysu/group_reid_annotation
+  CSG_ENHANCED_ROOT: /home/arsen/group_reid/datasets/cuhk_sysu/group_reid_annotation
+
+  ROADGROUP_ROOT: /home/arsen/group_reid/datasets/RoadGroup
+  ROADGROUP_IMAGE_ROOT: /home/arsen/group_reid/datasets/RoadGroup/Road_Group/group
+  ROADGROUP_ANNOTATION_ROOT: /home/arsen/group_reid/datasets/RoadGroup/Road_Group_Annotations
+  ROADGROUP_ENHANCED_PATH: /home/arsen/group_reid/datasets/RoadGroup/Road_Group_Annotations/RoadGroup_enhanced.pkl
+
+  DUKEGROUP_ROOT: /home/arsen/group_reid/datasets/DukeGroup
+  DUKEGROUP_IMAGE_ROOT: /home/arsen/group_reid/datasets/DukeGroup/images
+  DUKEGROUP_LABEL_ROOT: /home/arsen/group_reid/datasets/DukeGroup/labels

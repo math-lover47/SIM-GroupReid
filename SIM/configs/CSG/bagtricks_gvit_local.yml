@@ -1,0 +1,3 @@
+_BASE_: bagtricks_gvit.yml
+
+OUTPUT_DIR: logs/CSG/local_sim

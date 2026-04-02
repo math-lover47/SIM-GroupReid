@@ -1,0 +1,13 @@
+yacs
+termcolor
+tabulate
+tensorboard
+gdown
+scikit-learn
+faiss-cpu
+fvcore
+iopath
+easydict
+mediapipe==0.10.21
+opencv-python-headless
+Cython

@@ -1,0 +1,539 @@
+[04/01 09:29:49] fastreid INFO: Rank of current process: 0. World size: 1
+[04/01 09:29:50] fastreid INFO: Environment info:
+-------------------  -----------------------------------------------------------------------------------
+sys.platform         linux
+Python               3.12.3 (main, Jan 22 2026, 20:57:42) [GCC 13.3.0]
+numpy                2.4.3
+fastreid             1.3 @/home/arsen/group_reid/methods/SIM/fastreid
+FASTREID_ENV_MODULE  <not set>
+PyTorch              2.6.0+cu124 @/home/arsen/group_reid/.venv/lib/python3.12/site-packages/torch
+PyTorch debug build  False
+GPU available        False
+Pillow               12.1.1
+torchvision          0.21.0+cu124 @/home/arsen/group_reid/.venv/lib/python3.12/site-packages/torchvision
+cv2                  4.13.0
+-------------------  -----------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201703
+  - Intel(R) oneAPI Math Kernel Library Version 2024.2-Product Build 20240605 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.5.3 (Git Hash 66f0cb9eb66affd2da3bf5f8d897376f04aae6af)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX512
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, COMMIT_SHA=2236df1770800ffea5697b11b0bb0d910b2e59e1, CUDA_VERSION=12.4, CUDNN_VERSION=9.1.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DLIBKINETO_NOXPUPTI=ON -DUSE_FBGEMM -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wsuggest-override -Wno-psabi -Wno-error=old-style-cast -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, TORCH_VERSION=2.6.0, USE_CUDA=ON, USE_CUDNN=ON, USE_CUSPARSELT=1, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=1, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, 
+
+[04/01 09:29:50] fastreid INFO: Command line arguments: Namespace(config_file='configs/CSG/bagtricks_gvit_local.yml', dataset='CSG', opts=[], eval_only=False, resume=False, num_gpus=1, num_machines=1, machine_rank=0, dist_url='tcp://127.0.0.1:12345', seed=42)
+[04/01 09:29:50] fastreid INFO: Contents of args.config_file=configs/CSG/bagtricks_gvit_local.yml:
+_BASE_: bagtricks_gvit.yml
+
+OUTPUT_DIR: logs/CSG/local_sim
+
+[04/01 09:29:50] fastreid INFO: Running with full config:
+CUDNN_BENCHMARK: True
+DATALOADER:
+  NUM_INSTANCE: 4
+  NUM_WORKERS: 2
+  SAMPLER_TRAIN: NaiveIdentitySampler
+  SET_WEIGHT: []
+DATASETS:
+  COMBINEALL: False
+  CSG_ENHANCED_ROOT: /home/arsen/group_reid/datasets/cuhk_sysu/group_reid_annotation
+  CSG_IMAGE_ROOT: /home/arsen/group_reid/datasets/cuhk_sysu/Image/SSM
+  CSG_LABEL_ROOT: /home/arsen/group_reid/datasets/cuhk_sysu/group_reid_annotation
+  CSG_ROOT: /home/arsen/group_reid/datasets/cuhk_sysu
+  DUKEGROUP_IMAGE_ROOT: /home/arsen/group_reid/datasets/DukeGroup/images
+  DUKEGROUP_LABEL_ROOT: /home/arsen/group_reid/datasets/DukeGroup/labels
+  DUKEGROUP_ROOT: /home/arsen/group_reid/datasets/DukeGroup
+  NAMES: ('CSG',)
+  ROADGROUP_ANNOTATION_ROOT: /home/arsen/group_reid/datasets/RoadGroup/Road_Group_Annotations
+  ROADGROUP_ENHANCED_PATH: /home/arsen/group_reid/datasets/RoadGroup/Road_Group_Annotations/RoadGroup_enhanced.pkl
+  ROADGROUP_IMAGE_ROOT: /home/arsen/group_reid/datasets/RoadGroup/Road_Group/group
+  ROADGROUP_ROOT: /home/arsen/group_reid/datasets/RoadGroup
+  ROOT: /home/arsen/group_reid/datasets
+  TESTS: ('CSG',)
+INPUT:
+  AFFINE:
+    ENABLED: False
+  AUGMIX:
+    ENABLED: False
+    PROB: 0.0
+  AUTOAUG:
+    ENABLED: False
+    PROB: 0.0
+  CJ:
+    BRIGHTNESS: 0.15
+    CONTRAST: 0.15
+    ENABLED: False
+    HUE: 0.1
+    PROB: 0.5
+    SATURATION: 0.1
+  CROP:
+    ENABLED: False
+    RATIO: [0.75, 1.3333333333333333]
+    SCALE: [0.16, 1]
+    SIZE: [224, 224]
+  FLIP:
+    ENABLED: True
+    PROB: 0.5
+  PADDING:
+    ENABLED: True
+    MODE: constant
+    SIZE: 10
+  REA:
+    ENABLED: True
+    PROB: 0.5
+    VALUE: [123.675, 116.28, 103.53]
+  RPT:
+    ENABLED: False
+    PROB: 0.5
+  SIZE_TEST: [256, 128]
+  SIZE_TRAIN: [256, 128]
+KD:
+  EMA:
+    ENABLED: False
+    MOMENTUM: 0.999
+  MODEL_CONFIG: []
+  MODEL_WEIGHTS: []
+MODEL:
+  BACKBONE:
+    ATT_DROP_RATE: 0.0
+    DEPTH: base
+    DROP_PATH_RATIO: 0.1
+    DROP_RATIO: 0.0
+    FEAT_DIM: 768
+    LAST_STRIDE: 1
+    NAME: build_gvit_backbone
+    NORM: BN
+    PRETRAIN: True
+    PRETRAIN_PATH: /home/arsen/group_reid/methods/UMSOT/checkpoints/vit_base_patch16_224_augreg2_in21k_ft_in1k.pth
+    SIE_COE: 3.0
+    STRIDE_SIZE: (16, 16)
+    WITH_IBN: False
+    WITH_NL: False
+    WITH_SE: False
+  DEVICE: cuda
+  FREEZE_LAYERS: []
+  HEADS:
+    CLS_LAYER: Linear
+    EMBEDDING_DIM: 0
+    MARGIN: 0.0
+    NAME: EmbeddingHead
+    NECK_FEAT: before
+    NORM: BN
+    NUM_CLASSES: [0, 0]
+    POOL_LAYER: Identity
+    SCALE: 1
+    WITH_BNNECK: True
+  LOSSES:
+    CE:
+      ALPHA: 0.2
+      EPSILON: 0.1
+      SCALE: 1.0
+    CIRCLE:
+      GAMMA: 128
+      MARGIN: 0.25
+      SCALE: 1.0
+    COSFACE:
+      GAMMA: 128
+      MARGIN: 0.25
+      SCALE: 1.0
+    FL:
+      ALPHA: 0.25
+      GAMMA: 2
+      SCALE: 1.0
+    NAME: ('CrossEntropyLoss', 'TripletLoss')
+    TRI:
+      HARD_MINING: True
+      MARGIN: 0.0
+      NORM_FEAT: False
+      SCALE: 1.0
+  META_ARCHITECTURE: Baseline
+  PIXEL_MEAN: [127.5, 127.5, 127.5]
+  PIXEL_STD: [127.5, 127.5, 127.5]
+  QUEUE_SIZE: 8192
+  WEIGHTS: 
+OUTPUT_DIR: logs/CSG/local_sim
+SOLVER:
+  AMP:
+    ENABLED: False
+  BASE_LR: 0.002
+  BIAS_LR_FACTOR: 1.0
+  CHECKPOINT_PERIOD: 5
+  CLIP_GRADIENTS:
+    CLIP_TYPE: norm
+    CLIP_VALUE: 5.0
+    ENABLED: True
+    NORM_TYPE: 2.0
+  DELAY_EPOCHS: 0
+  ETA_MIN_LR: 0.00016
+  FREEZE_ITERS: 0
+  GAMMA: 0.1
+  HEADS_LR_FACTOR: 1.0
+  IMS_PER_BATCH: 8
+  MAX_EPOCH: 400
+  MOMENTUM: 0.9
+  NESTEROV: False
+  OPT: SGD
+  SCHED: CosineAnnealingLR
+  STEPS: [30, 55]
+  WARMUP_FACTOR: 0.01
+  WARMUP_ITERS: 30
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: 0.0005
+  WEIGHT_DECAY_NORM: 0.0
+TEST:
+  AQE:
+    ALPHA: 3.0
+    ENABLED: False
+    QE_K: 5
+    QE_TIME: 1
+  EVAL_PERIOD: 5
+  FLIP:
+    ENABLED: False
+  IMS_PER_BATCH: 8
+  METRIC: cosine
+  PRECISE_BN:
+    DATASET: CSG
+    ENABLED: False
+    NUM_ITER: 300
+  RERANK:
+    ENABLED: False
+    K1: 20
+    K2: 6
+    LAMBDA: 0.3
+  ROC:
+    ENABLED: False
+[04/01 09:29:50] fastreid INFO: Full config saved to /home/arsen/group_reid/methods/SIM/logs/CSG/local_sim/config.yaml
+[04/01 09:31:33] fastreid INFO: Rank of current process: 0. World size: 1
+[04/01 09:31:34] fastreid INFO: Environment info:
+----------------------  -----------------------------------------------------------------------------------
+sys.platform            linux
+Python                  3.12.3 (main, Jan 22 2026, 20:57:42) [GCC 13.3.0]
+numpy                   2.4.3
+fastreid                1.3 @/home/arsen/group_reid/methods/SIM/fastreid
+FASTREID_ENV_MODULE     <not set>
+PyTorch                 2.6.0+cu124 @/home/arsen/group_reid/.venv/lib/python3.12/site-packages/torch
+PyTorch debug build     False
+GPU available           True
+GPU 0                   NVIDIA GeForce MX330
+CUDA_HOME               None
+Pillow                  12.1.1
+torchvision             0.21.0+cu124 @/home/arsen/group_reid/.venv/lib/python3.12/site-packages/torchvision
+torchvision arch flags  /home/arsen/group_reid/.venv/lib/python3.12/site-packages/torchvision/_C.so
+cv2                     4.13.0
+----------------------  -----------------------------------------------------------------------------------
+PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201703
+  - Intel(R) oneAPI Math Kernel Library Version 2024.2-Product Build 20240605 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.5.3 (Git Hash 66f0cb9eb66affd2da3bf5f8d897376f04aae6af)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX512
+  - CUDA Runtime 12.4
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90
+  - CuDNN 90.1
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, COMMIT_SHA=2236df1770800ffea5697b11b0bb0d910b2e59e1, CUDA_VERSION=12.4, CUDNN_VERSION=9.1.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DLIBKINETO_NOXPUPTI=ON -DUSE_FBGEMM -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wsuggest-override -Wno-psabi -Wno-error=old-style-cast -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, TORCH_VERSION=2.6.0, USE_CUDA=ON, USE_CUDNN=ON, USE_CUSPARSELT=1, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=1, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, 
+
+[04/01 09:31:34] fastreid INFO: Command line arguments: Namespace(config_file='configs/CSG/bagtricks_gvit_local.yml', resume=False, eval_only=False, num_gpus=1, num_machines=1, machine_rank=0, dist_url='tcp://127.0.0.1:50152', opts=['MODEL.DEVICE', 'cpu', 'SOLVER.MAX_EPOCH', '1', 'TEST.EVAL_PERIOD', '1', 'SOLVER.CHECKPOINT_PERIOD', '1', 'DATALOADER.NUM_WORKERS', '0'], seed=42, dataset='CSG')
+[04/01 09:31:34] fastreid INFO: Contents of args.config_file=configs/CSG/bagtricks_gvit_local.yml:
+_BASE_: bagtricks_gvit.yml
+
+OUTPUT_DIR: logs/CSG/local_sim
+
+[04/01 09:31:34] fastreid INFO: Running with full config:
+CUDNN_BENCHMARK: True
+DATALOADER:
+  NUM_INSTANCE: 4
+  NUM_WORKERS: 0
+  SAMPLER_TRAIN: NaiveIdentitySampler
+  SET_WEIGHT: []
+DATASETS:
+  COMBINEALL: False
+  CSG_ENHANCED_ROOT: /home/arsen/group_reid/datasets/cuhk_sysu/group_reid_annotation
+  CSG_IMAGE_ROOT: /home/arsen/group_reid/datasets/cuhk_sysu/Image/SSM
+  CSG_LABEL_ROOT: /home/arsen/group_reid/datasets/cuhk_sysu/group_reid_annotation
+  CSG_ROOT: /home/arsen/group_reid/datasets/cuhk_sysu
+  DUKEGROUP_IMAGE_ROOT: /home/arsen/group_reid/datasets/DukeGroup/images
+  DUKEGROUP_LABEL_ROOT: /home/arsen/group_reid/datasets/DukeGroup/labels
+  DUKEGROUP_ROOT: /home/arsen/group_reid/datasets/DukeGroup
+  NAMES: ('CSG',)
+  ROADGROUP_ANNOTATION_ROOT: /home/arsen/group_reid/datasets/RoadGroup/Road_Group_Annotations
+  ROADGROUP_ENHANCED_PATH: /home/arsen/group_reid/datasets/RoadGroup/Road_Group_Annotations/RoadGroup_enhanced.pkl
+  ROADGROUP_IMAGE_ROOT: /home/arsen/group_reid/datasets/RoadGroup/Road_Group/group
+  ROADGROUP_ROOT: /home/arsen/group_reid/datasets/RoadGroup
+  ROOT: /home/arsen/group_reid/datasets
+  TESTS: ('CSG',)
+INPUT:
+  AFFINE:
+    ENABLED: False
+  AUGMIX:
+    ENABLED: False
+    PROB: 0.0
+  AUTOAUG:
+    ENABLED: False
+    PROB: 0.0
+  CJ:
+    BRIGHTNESS: 0.15
+    CONTRAST: 0.15
+    ENABLED: False
+    HUE: 0.1
+    PROB: 0.5
+    SATURATION: 0.1
+  CROP:
+    ENABLED: False
+    RATIO: [0.75, 1.3333333333333333]
+    SCALE: [0.16, 1]
+    SIZE: [224, 224]
+  FLIP:
+    ENABLED: True
+    PROB: 0.5
+  PADDING:
+    ENABLED: True
+    MODE: constant
+    SIZE: 10
+  REA:
+    ENABLED: True
+    PROB: 0.5
+    VALUE: [123.675, 116.28, 103.53]
+  RPT:
+    ENABLED: False
+    PROB: 0.5
+  SIZE_TEST: [256, 128]
+  SIZE_TRAIN: [256, 128]
+KD:
+  EMA:
+    ENABLED: False
+    MOMENTUM: 0.999
+  MODEL_CONFIG: []
+  MODEL_WEIGHTS: []
+MODEL:
+  BACKBONE:
+    ATT_DROP_RATE: 0.0
+    DEPTH: base
+    DROP_PATH_RATIO: 0.1
+    DROP_RATIO: 0.0
+    FEAT_DIM: 768
+    LAST_STRIDE: 1
+    NAME: build_gvit_backbone
+    NORM: BN
+    PRETRAIN: True
+    PRETRAIN_PATH: /home/arsen/group_reid/methods/UMSOT/checkpoints/vit_base_patch16_224_augreg2_in21k_ft_in1k.pth
+    SIE_COE: 3.0
+    STRIDE_SIZE: (16, 16)
+    WITH_IBN: False
+    WITH_NL: False
+    WITH_SE: False
+  DEVICE: cpu
+  FREEZE_LAYERS: []
+  HEADS:
+    CLS_LAYER: Linear
+    EMBEDDING_DIM: 0
+    MARGIN: 0.0
+    NAME: EmbeddingHead
+    NECK_FEAT: before
+    NORM: BN
+    NUM_CLASSES: [0, 0]
+    POOL_LAYER: Identity
+    SCALE: 1
+    WITH_BNNECK: True
+  LOSSES:
+    CE:
+      ALPHA: 0.2
+      EPSILON: 0.1
+      SCALE: 1.0
+    CIRCLE:
+      GAMMA: 128
+      MARGIN: 0.25
+      SCALE: 1.0
+    COSFACE:
+      GAMMA: 128
+      MARGIN: 0.25
+      SCALE: 1.0
+    FL:
+      ALPHA: 0.25
+      GAMMA: 2
+      SCALE: 1.0
+    NAME: ('CrossEntropyLoss', 'TripletLoss')
+    TRI:
+      HARD_MINING: True
+      MARGIN: 0.0
+      NORM_FEAT: False
+      SCALE: 1.0
+  META_ARCHITECTURE: Baseline
+  PIXEL_MEAN: [127.5, 127.5, 127.5]
+  PIXEL_STD: [127.5, 127.5, 127.5]
+  QUEUE_SIZE: 8192
+  WEIGHTS: 
+OUTPUT_DIR: logs/CSG/local_sim
+SOLVER:
+  AMP:
+    ENABLED: False
+  BASE_LR: 0.002
+  BIAS_LR_FACTOR: 1.0
+  CHECKPOINT_PERIOD: 1
+  CLIP_GRADIENTS:
+    CLIP_TYPE: norm
+    CLIP_VALUE: 5.0
+    ENABLED: True
+    NORM_TYPE: 2.0
+  DELAY_EPOCHS: 0
+  ETA_MIN_LR: 0.00016
+  FREEZE_ITERS: 0
+  GAMMA: 0.1
+  HEADS_LR_FACTOR: 1.0
+  IMS_PER_BATCH: 8
+  MAX_EPOCH: 1
+  MOMENTUM: 0.9
+  NESTEROV: False
+  OPT: SGD
+  SCHED: CosineAnnealingLR
+  STEPS: [30, 55]
+  WARMUP_FACTOR: 0.01
+  WARMUP_ITERS: 30
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: 0.0005
+  WEIGHT_DECAY_NORM: 0.0
+TEST:
+  AQE:
+    ALPHA: 3.0
+    ENABLED: False
+    QE_K: 5
+    QE_TIME: 1
+  EVAL_PERIOD: 1
+  FLIP:
+    ENABLED: False
+  IMS_PER_BATCH: 8
+  METRIC: cosine
+  PRECISE_BN:
+    DATASET: CSG
+    ENABLED: False
+    NUM_ITER: 300
+  RERANK:
+    ENABLED: False
+    K1: 20
+    K2: 6
+    LAMBDA: 0.3
+  ROC:
+    ENABLED: False
+[04/01 09:31:34] fastreid INFO: Full config saved to /home/arsen/group_reid/methods/SIM/logs/CSG/local_sim/config.yaml
+[04/01 09:31:34] fastreid.engine.defaults INFO: Prepare training set
+[04/01 09:31:34] fastreid.data.datasets.bases INFO: => Loaded CSG in csv format: 
+[36m| subset   | # gids   | # pids   | # images   | # cameras   |
+|:---------|:---------|:---------|:-----------|:------------|
+| train    | 859      | 1969     | 2115       | 1           |[0m
+[04/01 09:31:34] fastreid.data.build INFO: Using training sampler NaiveIdentitySampler
+[04/01 09:31:34] fastreid.engine.defaults INFO: Auto-scaling the num_classes=[859, 1969]
+[04/01 09:31:37] fastreid.modeling.backbones.group_vit INFO: Loading pretrained model from /home/arsen/group_reid/methods/UMSOT/checkpoints/vit_base_patch16_224_augreg2_in21k_ft_in1k.pth
+[04/01 09:31:37] fastreid.modeling.backbones.group_vit INFO: The checkpoint state_dict contains keys that are not used by the model:
+  [35mhead.{bias, weight}[0m
+[04/01 09:31:37] fastreid.engine.defaults INFO: Model:
+Baseline(
+  (backbone): GVit(
+    (p_vit): p_ViT(
+      (patch_embed): PatchEmbed_overlap(
+        (proj): Conv2d(3, 768, kernel_size=(16, 16), stride=(16, 16))
+      )
+      (pos_drop): Dropout(p=0.0, inplace=False)
+      (blocks): ModuleList(
+        (0): Block(
+          (norm1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): Attention(
+            (qkv): Linear(in_features=768, out_features=2304, bias=True)
+            (attn_drop): Dropout(p=0.0, inplace=False)
+            (proj): Linear(in_features=768, out_features=768, bias=True)
+            (proj_drop): Dropout(p=0.0, inplace=False)
+          )
+          (drop_path): Identity()
+          (norm2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=768, out_features=3072, bias=True)
+            (act): GELU(approximate='none')
+            (fc2): Linear(in_features=3072, out_features=768, bias=True)
+            (drop): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (1-11): 11 x Block(
+          (norm1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (attn): Attention(
+            (qkv): Linear(in_features=768, out_features=2304, bias=True)
+            (attn_drop): Dropout(p=0.0, inplace=False)
+            (proj): Linear(in_features=768, out_features=768, bias=True)
+            (proj_drop): Dropout(p=0.0, inplace=False)
+          )
+          (drop_path): DropPath()
+          (norm2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=768, out_features=3072, bias=True)
+            (act): GELU(approximate='none')
+            (fc2): Linear(in_features=3072, out_features=768, bias=True)
+            (drop): Dropout(p=0.0, inplace=False)
+          )
+        )
+      )
+      (norm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+    )
+    (g_vit): g_ViT(
+      (blocks): ModuleList(
+        (0): Block(
+          (norm1): LayerNorm((768,), eps=1e-06, elementwise_affine=True)
+          (attn): Attention(
+            (qkv): Linear(in_features=768, out_features=2304, bias=True)
+            (attn_drop): Dropout(p=0.0, inplace=False)
+            (proj): Linear(in_features=768, out_features=768, bias=True)
+            (proj_drop): Dropout(p=0.0, inplace=False)
+          )
+          (drop_path): Identity()
+          (norm2): LayerNorm((768,), eps=1e-06, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=768, out_features=3072, bias=True)
+            (act): GELU(approximate='none')
+            (fc2): Linear(in_features=3072, out_features=768, bias=True)
+            (drop): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (1): Block(
+          (norm1): LayerNorm((768,), eps=1e-06, elementwise_affine=True)
+          (attn): Attention(
+            (qkv): Linear(in_features=768, out_features=2304, bias=True)
+            (attn_drop): Dropout(p=0.0, inplace=False)
+            (proj): Linear(in_features=768, out_features=768, bias=True)
+            (proj_drop): Dropout(p=0.0, inplace=False)
+          )
+          (drop_path): DropPath()
+          (norm2): LayerNorm((768,), eps=1e-06, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=768, out_features=3072, bias=True)
+            (act): GELU(approximate='none')
+            (fc2): Linear(in_features=3072, out_features=768, bias=True)
+            (drop): Dropout(p=0.0, inplace=False)
+          )
+        )
+      )
+      (norm): LayerNorm((768,), eps=1e-06, elementwise_affine=True)
+    )
+  )
+  (heads_g): EmbeddingHead(
+    (pool_layer): Identity()
+    (bottleneck): Sequential(
+      (0): BatchNorm(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (cls_layer): Linear(num_classes=859, scale=1, margin=0.0)
+  )
+  (heads_p): EmbeddingHead(
+    (pool_layer): Identity()
+    (bottleneck): Sequential(
+      (0): BatchNorm(768, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (cls_layer): Linear(num_classes=1969, scale=1, margin=0.0)
+  )
+)
+[04/01 09:31:37] fastreid.utils.checkpoint INFO: No checkpoint found. Training model from scratch
+[04/01 09:31:37] fastreid.engine.train_loop INFO: Starting training from epoch 0
+[04/01 09:31:41] fastreid.engine.hooks INFO: Total training time: 0:00:03 (0:00:00 on hooks)

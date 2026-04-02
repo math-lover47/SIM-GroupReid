@@ -1,0 +1,3 @@
+_BASE_: bagtricks_gvit.yml
+
+OUTPUT_DIR: logs/RoadGroup/local_sim
